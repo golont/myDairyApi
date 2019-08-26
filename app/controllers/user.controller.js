@@ -64,11 +64,10 @@ exports.createUser = (req, res) => {
 exports.createNewPost = (req, res) => {
     res.set("Access-Control-Allow-Origin", "*");
     const { username } = req.body;
-    const { title, text } = req.body.post;
     const newPost = {
         id: uuid(),
-        title,
-        text,
+        title: "",
+        text: "",
         date: moment().format("DD.MM.YYYY")
     };
     User.updateOne({ name: username }, { $push: { posts: newPost } }, () => {
