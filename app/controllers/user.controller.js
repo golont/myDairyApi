@@ -2,7 +2,7 @@ const User = require("../models/user.model.js");
 
 exports.getUser = (req, res) => {
     res.set("Access-Control-Allow-Origin", "*");
-    const { username } = req.body;
+    const { username } = req.params;
     User.find({ name: username })
         .then(data => {
             if (data.length < 1) res.send({ isUserFound: false });
