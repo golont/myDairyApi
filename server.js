@@ -31,14 +31,10 @@ mongoose
 
 // define a simple route
 app.get("/", (req, res) => {
-    res.set('Access-Control-Allow-Origin', '*');
-    res.json({
-        message:
-            "Welcome to EasyNotes application. Take notes quickly. Organize and keep track of all your notes."
-    });
+    res.set("Access-Control-Allow-Origin", "*");
 });
 
-require("./app/routes/note.routes.js")(app);
+require("./app/routes/user.routes.js")(app);
 // listen for requests
 app.listen(PORT, () => {
     console.log("Server is listening on port " + PORT);
