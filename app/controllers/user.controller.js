@@ -22,8 +22,8 @@ exports.updateLastPost = (req, res) => {
 };
 
 exports.createUser = (req, res) => {
-    res.set("Access-Control-Allow-Origin", "*");
-    const { username, now } = req.body;
+    // res.set("Access-Control-Allow-Origin", "*");
+    const { username } = req.body;
     if (!username) {
         return res.status(400).send({
             message: "Note content can not be empty"
