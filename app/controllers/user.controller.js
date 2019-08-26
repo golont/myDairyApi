@@ -3,8 +3,18 @@ const User = require("../models/user.model.js");
 exports.getUser = (req, res) => {
     res.set("Access-Control-Allow-Origin", "*");
     const { username } = req.body;
-    User.find().then(console.log);
-    res.send({ lol: "lol" });
+    User.find({ name: username })
+        .then(data => {
+            if (data.length < 1) res.send({ isUserFound: false });
+            else res.send({ data, isUserFound: true });
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message ||
+                    "Some error occurred while creating the Note."
+            });
+        });
 };
 
 exports.updateLastPost = (req, res) => {
