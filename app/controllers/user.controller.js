@@ -31,7 +31,7 @@ exports.updateLastPost = (req, res) => {
     const { username } = req.body;
     const { id, title, text } = req.body.post;
     User.updateOne(
-        { name: username, "posts.id": id },
+        { name: username, "posts._id": id },
         { $set: { "posts.$.title": title, "posts.$.text": text } },
         () => {
             console.log("done");
