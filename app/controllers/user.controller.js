@@ -84,13 +84,25 @@ exports.createUser = (req, res) => {
 exports.createNewPost = (req, res) => {
     res.set("Access-Control-Allow-Origin", "*");
     const { username } = req.body;
-    const newPost = {
-        title: "",
-        text: "",
-        date: moment().format("DD.MM.YYYY")
-    };
-    User.updateOne({ name: username }, { $push: { posts: newPost } }, () => {
-        console.log("done");
-        res.send({ message: "New Post Added" });
-    });
+
+    User.find({ name: username })
+        .then(data => {
+            console.log(data);
+            return data[0].posts.length + 1;
+        })
+        .then((len) => {
+            const newPost = {
+                title: `Post #${len}`,
+                text: "",
+                date: moment().format("DD.MM.YYYY")
+            };
+            User.updateOne(
+                { name: username },
+                { $push: { posts: newPost } },
+                () => {
+                    console.log("done");
+                    res.send({ message: "New Post Added" });
+                }
+            );
+        });
 };
