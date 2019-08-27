@@ -39,13 +39,6 @@ exports.getUserPosts = (req, res) => {
         });
 };
 
-exports.getCurrentTime = (req, res) => {
-    res.set("Access-Control-Allow-Origin", "*");
-    res.send({
-        currentDate: moment().format("DD.MM.YYYY")
-    });
-};
-
 exports.updateLastPost = (req, res) => {
     res.set("Access-Control-Allow-Origin", "*");
     const { username } = req.body;
