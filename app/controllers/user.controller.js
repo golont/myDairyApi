@@ -1,5 +1,4 @@
 const User = require("../models/user.model.js");
-const uuid = require("uuid");
 const moment = require("moment");
 
 exports.getUser = (req, res) => {
@@ -8,7 +7,24 @@ exports.getUser = (req, res) => {
     User.find({ name: username })
         .then(data => {
             if (data.length < 1) res.send({ isUserFound: false });
-            else res.send({ user: data, isUserFound: true });
+            else res.send({ isUserFound: true });
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message ||
+                    "Some error occurred while creating the Note."
+            });
+        });
+};
+
+exports.getUserPosts = (req, res) => {
+    res.set("Access-Control-Allow-Origin", "*");
+    const { username } = req.params;
+    User.find({ name: username })
+        .then(data => {
+            if (data.length < 1) res.send({ isUserFound: false });
+            else res.send({ posts: data[0].posts });
         })
         .catch(err => {
             res.status(500).send({
@@ -72,7 +88,6 @@ exports.createNewPost = (req, res) => {
     res.set("Access-Control-Allow-Origin", "*");
     const { username } = req.body;
     const newPost = {
-        id: uuid(),
         title: "",
         text: "",
         date: moment().format("DD.MM.YYYY")
