@@ -24,7 +24,11 @@ exports.getUserPosts = (req, res) => {
     User.find({ name: username })
         .then(data => {
             if (data.length < 1) res.send({ isUserFound: false });
-            else res.send({ posts: data[0].posts });
+            else
+                res.send({
+                    posts: data[0].posts,
+                    currentDate: moment().format("DD.MM.YYYY")
+                });
         })
         .catch(err => {
             res.status(500).send({
@@ -39,7 +43,7 @@ exports.getCurrentTime = (req, res) => {
     res.set("Access-Control-Allow-Origin", "*");
     res.send({
         currentDate: moment().format("DD.MM.YYYY")
-    })
+    });
 };
 
 exports.updateLastPost = (req, res) => {
