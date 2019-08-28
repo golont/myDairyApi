@@ -35,6 +35,7 @@ app.get("/", (req, res) => {
 });
 
 require("./app/routes/user.routes.js")(app);
+require("./app/routes/timer.routes.js")(app);
 // listen for requests
 app.listen(PORT, () => {
     console.log("Server is listening on port " + PORT);
